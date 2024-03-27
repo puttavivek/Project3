@@ -1,9 +1,12 @@
 from django.db import models
 
-class InventoryItem(models.Model):
-    part_name = models.CharField(max_length=100, help_text='Enter the part name')
-    part_no = models.CharField(max_length=50, unique=True, help_text='Enter the part number')
-    model = models.CharField(max_length=50, help_text='Enter the model')
-    stock_location = models.IntegerField(help_text='Enter the stock location')
-    quantity = models.IntegerField(help_text='Enter the quantity')
-    date_added = models.DateTimeField(auto_now_add=True, help_text='Date when the item was added')
+class Item(models.Model):
+    part_number = models.CharField(max_length=100, default='N/A')
+    part_name = models.CharField(max_length=100, default='N/A')
+    model = models.CharField(max_length=100, default='N/A')
+    stock_location = models.CharField(max_length=100, default='N/A')
+    quantity = models.IntegerField(default=0)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.part_no

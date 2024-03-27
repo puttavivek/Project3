@@ -1,0 +1,35 @@
+<!-- inventory_app/templates/inventory_app/list_items.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Items</title>
+</head>
+<body>
+    <h1>Inventory Items</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Part Name</th>
+                <th>Part Number</th>
+                <th>Model</th>
+                <th>Stock Location</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.part_name }}</td>
+                <td>{{ item.part_number }}</td>
+                <td>{{ item.model }}</td>
+                <td>{{ item.stock_location }}</td>
+                <td>{{ item.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

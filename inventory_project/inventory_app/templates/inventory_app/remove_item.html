@@ -1,0 +1,21 @@
+<!-- inventory_app/templates/inventory_app/remove_item.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Item</title>
+</head>
+<body>
+    <h1>Remove Item</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Remove Item</button>
+        {% if error_message %}
+            <p>{{ error_message }}</p>
+        {% endif %}
+    </form>
+</body>
+</html>
