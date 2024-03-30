@@ -1,16 +1,13 @@
-<!-- inventory_app/templates/inventory_app/list_items.html -->
+{% extends 'inventory_app/index.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Items</title>
-</head>
-<body>
-    <h1>Inventory Items</h1>
-    <table>
-        <thead>
+{% block title %}Page 1 Title{% endblock %}
+
+{% block content %}
+<div class="d-grid gap-2 col-2 mx-auto">
+    <h1 style="white-space: nowrap; line-height: 2; font-size: 29px;">View Inventory</h1>
+    <t1 style="white-space: nowrap;">
+        <table class="table">
+            <thead>
             <tr>
                 <th>Part Name</th>
                 <th>Part Number</th>
@@ -18,8 +15,8 @@
                 <th>Stock Location</th>
                 <th>Quantity</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             {% for item in items %}
             <tr>
                 <td>{{ item.part_name }}</td>
@@ -29,7 +26,8 @@
                 <td>{{ item.quantity }}</td>
             </tr>
             {% endfor %}
-        </tbody>
-    </table>
-</body>
-</html>
+            </tbody>
+        </table>
+    </t1>
+</div>
+{% endblock %}

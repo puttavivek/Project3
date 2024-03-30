@@ -7,6 +7,7 @@ from .forms import SearchItemForm
 from .forms import UpdateItemForm
 from .forms import DeleteItemForm
 from .models import Item
+from .project1main import Web_Data as wd
 
 def home(request):
     return render(request, 'inventory_app/home.html')
@@ -21,6 +22,8 @@ def add_item(request):
             model = form.cleaned_data['model']
             stock_location = form.cleaned_data['stock_location']
             quantity = form.cleaned_data['quantity']
+            item_data = ["ADD", part_name, part_number, model, stock_location, quantity]
+            wd.web_data(item_data)
             Item.objects.create(part_name=part_name, part_number=part_number, model=model,
                                      stock_location=stock_location, quantity=quantity)
             return redirect('home')  # Redirect to home page after successful addition

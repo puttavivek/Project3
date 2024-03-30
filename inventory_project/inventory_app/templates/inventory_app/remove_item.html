@@ -1,21 +1,17 @@
-<!-- inventory_app/templates/inventory_app/remove_item.html -->
+{% extends 'inventory_app/index.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remove Item</title>
-</head>
-<body>
-    <h1>Remove Item</h1>
+{% block title %}Page 1 Title{% endblock %}
+
+{% block content %}
+<div class="d-grid gap-2 col-2 mx-auto">
+    <h1 style="white-space: nowrap; line-height: 2; font-size: 29px;">Remove Item</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <p><input type="text" name="part_number" placeholder="Part Number"></p>
         <button type="submit">Remove Item</button>
         {% if error_message %}
             <p>{{ error_message }}</p>
         {% endif %}
     </form>
-</body>
-</html>
+</div>
+{% endblock %}
