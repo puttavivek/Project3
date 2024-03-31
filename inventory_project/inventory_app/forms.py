@@ -10,6 +10,11 @@ class AddItemForm(forms.ModelForm):
 
 class RemoveItemForm(forms.Form):
     part_number = forms.CharField(max_length=50)
+    quantity = forms.IntegerField()
+
+class EditItemForm(forms.Form):
+    part_number = forms.CharField(max_length=50)
+    quantity = forms.IntegerField()
 
 class SearchItemForm(forms.Form):
     part_number = forms.CharField(max_length=50)

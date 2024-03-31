@@ -52,7 +52,6 @@ class Inventory:
         return selected_row
 
     def add_method(self, *args):
-        print(*args)
         """
                 Adds new inventory data or updates existing data based on the provided arguments.
 
@@ -81,7 +80,7 @@ class Inventory:
             except PermissionError:
                 return ["Error", f"Failed to add data. Please close the Excel file that is currently open."]
 
-            return ["Message", f"Data added successfully."]
+            return "Success"
 
         # if part is present update the quantity
         else:
@@ -92,7 +91,7 @@ class Inventory:
             except PermissionError:
                 return ["Error", f"Failed to update data. Please close the Excel file that is currently open."]
 
-            return["Message", "Data updated successfully."]
+            return "Success"
 
     def update_method(self, part_no, quantity):
         """

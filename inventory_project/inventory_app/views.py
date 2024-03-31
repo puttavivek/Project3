@@ -6,8 +6,10 @@ from .forms import RemoveItemForm
 from .forms import SearchItemForm
 from .forms import UpdateItemForm
 from .forms import DeleteItemForm
+from .forms import EditItemForm
 from .models import Item
 from .project1main import Web_Data as wd
+from django.contrib import messages
 
 def home(request):
     return render(request, 'inventory_app/home.html')
@@ -23,10 +25,17 @@ def add_item(request):
             stock_location = form.cleaned_data['stock_location']
             quantity = form.cleaned_data['quantity']
             item_data = ["ADD", part_name, part_number, model, stock_location, quantity]
-            wd.web_data(item_data)
+            returnstr = wd.web_data(item_data)
+            print(returnstr)
+            if returnstr == "Success":
+                print("succ")
+                messages.success(request, 'Item added successfully.')
+            else:
+                print("fail")
+                messages.warning(request, 'Failed to add the data')
             Item.objects.create(part_name=part_name, part_number=part_number, model=model,
                                      stock_location=stock_location, quantity=quantity)
-            return redirect('home')  # Redirect to home page after successful addition
+            #return redirect('home')  # Redirect to home page after successful addition
     else:
         form = AddItemForm()
     return render(request, 'inventory_app/add_item.html', {'form': form})
@@ -36,9 +45,29 @@ def remove_item(request):
         form = RemoveItemForm(request.POST)
         if form.is_valid():
             part_number = form.cleaned_data['part_number']
+            quantity = form.cleaned_data['quantity']
+            item_data = ["EDIT", part_number, quantity]
             try:
                 item_to_remove = Item.objects.get(part_number=part_number)
                 item_to_remove.delete()
+                return redirect('home')  # Redirect to home page after successful removal
+            except Item.DoesNotExist:
+                error_message = "Item with this part number does not exist."
+                return render(request, 'inventory_app/remove_item.html', {'form': form, 'error_message': error_message})
+    else:
+        form = RemoveItemForm()
+    return render(request, 'inventory_app/remove_item.html', {'form': form})
+
+def edit_item(request):
+    if request.method == 'POST':
+        form = EditItemForm(request.POST)
+        if form.is_valid():
+            part_number = form.cleaned_data['part_number']
+            quantity = form.cleaned_data['quantity']
+            item_data = ["EDIT", part_number, quantity]
+            try:
+                item_to_edit = Item.objects.get(part_number=part_number)
+                item_to_edit.delete()
                 return redirect('home')  # Redirect to home page after successful removal
             except Item.DoesNotExist:
                 error_message = "Item with this part number does not exist."

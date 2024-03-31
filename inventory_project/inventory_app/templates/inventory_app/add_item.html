@@ -8,11 +8,25 @@
     <form method="post">
         {% csrf_token %}
         <p><input type="text" name="part_name" placeholder="Part Name"></p>
-        <p><input type="text" name="part_number" placeholder="Part Number"></p>
+        <p><input type="number" name="part_number" placeholder="Part Number"></p>
         <p><input type="text" name="model" placeholder="Model"></p>
         <p><input type="text" name="stock_location" placeholder="Stock Location"></p>
         <p><input type="number" name="quantity" placeholder="Quantity"></p>
-        <button type="submit">Add Item</button>
+        <button type="submit" style="margin-bottom: 10px;">Add Item</button>
     </form>
+</div>
+
+{% if messages %}
+{% for message in messages %}
+<div class="d-grid mx-auto">
+    <div class="alert alert-{{ message.tags }}" role="alert">
+        {{ message }}
     </div>
+</div>
+{% endfor %}
+{% endif %}
 {% endblock %}
+
+
+
+
