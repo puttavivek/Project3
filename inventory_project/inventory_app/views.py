@@ -2,7 +2,6 @@
 
 from django.shortcuts import render, redirect
 from .forms import AddItemForm
-from .forms import RemoveItemForm
 from .forms import SearchItemForm
 from .forms import UpdateItemForm
 from .forms import DeleteItemForm
@@ -40,24 +39,6 @@ def add_item(request):
         form = AddItemForm()
     return render(request, 'inventory_app/add_item.html', {'form': form})
 
-def remove_item(request):
-    if request.method == 'POST':
-        form = RemoveItemForm(request.POST)
-        if form.is_valid():
-            part_number = form.cleaned_data['part_number']
-            quantity = form.cleaned_data['quantity']
-            item_data = ["EDIT", part_number, quantity]
-            try:
-                item_to_remove = Item.objects.get(part_number=part_number)
-                item_to_remove.delete()
-                return redirect('home')  # Redirect to home page after successful removal
-            except Item.DoesNotExist:
-                error_message = "Item with this part number does not exist."
-                return render(request, 'inventory_app/remove_item.html', {'form': form, 'error_message': error_message})
-    else:
-        form = RemoveItemForm()
-    return render(request, 'inventory_app/remove_item.html', {'form': form})
-
 def edit_item(request):
     if request.method == 'POST':
         form = EditItemForm(request.POST)
@@ -65,15 +46,17 @@ def edit_item(request):
             part_number = form.cleaned_data['part_number']
             quantity = form.cleaned_data['quantity']
             item_data = ["EDIT", part_number, quantity]
+            returnstr = wd.web_data(item_data)
+            print(returnstr)
             try:
                 item_to_edit = Item.objects.get(part_number=part_number)
                 item_to_edit.delete()
-                return redirect('home')  # Redirect to home page after successful removal
+                return redirect('home')
             except Item.DoesNotExist:
                 error_message = "Item with this part number does not exist."
                 return render(request, 'inventory_app/remove_item.html', {'form': form, 'error_message': error_message})
     else:
-        form = RemoveItemForm()
+        form = EditItemForm()
     return render(request, 'inventory_app/remove_item.html', {'form': form})
 
 def list_items(request):

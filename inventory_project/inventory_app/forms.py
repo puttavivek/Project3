@@ -8,10 +8,6 @@ class AddItemForm(forms.ModelForm):
         model = Item
         fields = ['part_name', 'part_number', 'model', 'stock_location', 'quantity']
 
-class RemoveItemForm(forms.Form):
-    part_number = forms.CharField(max_length=50)
-    quantity = forms.IntegerField()
-
 class EditItemForm(forms.Form):
     part_number = forms.CharField(max_length=50)
     quantity = forms.IntegerField()
