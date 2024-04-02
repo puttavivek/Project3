@@ -1,0 +1,15 @@
+{% extends 'inventory_app/index.html' %}
+
+{% block title %}Page 1 Title{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-grid mx-auto">
+        <div class="table-responsive">
+
+                {{ items | safe }}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

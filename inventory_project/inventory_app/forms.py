@@ -14,16 +14,3 @@ class EditItemForm(forms.Form):
 
 class SearchItemForm(forms.Form):
     part_number = forms.CharField(max_length=50)
-
-class DeleteItemForm(forms.Form):
-    part_number = forms.CharField(label='Part Number', max_length=100)
-
-class SearchForm(forms.Form):
-    part_number = forms.CharField(label='Part Number', max_length=100)
-
-class UpdateItemForm(forms.Form):
-    part_number = forms.CharField(label='Part Number', max_length=100)
-    quantity = forms.IntegerField(label='Quantity')
-
-class DeleteItemForm(forms.Form):
-    part_number = forms.CharField(label='Part Number', max_length=100)

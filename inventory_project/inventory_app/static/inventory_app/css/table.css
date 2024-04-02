@@ -1,0 +1,19 @@
+.table-container {
+    max-height: 550px; /* Adjust the max-height as needed */
+    overflow-y: auto; /* Add vertical scroll bar */
+}
+
+.data-table {
+    width: 100%; /* Table fills the container */
+    border-collapse: collapse;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #ddd; /* Add borders to cells */
+    padding: 8px;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #f2f2f2; /* Header background color */
+}

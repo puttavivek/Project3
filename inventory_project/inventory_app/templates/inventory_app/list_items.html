@@ -1,33 +1,21 @@
+
 {% extends 'inventory_app/index.html' %}
 
 {% block title %}Page 1 Title{% endblock %}
-
+{% load static %}
 {% block content %}
 <div class="d-grid gap-2 col-2 mx-auto">
-    <h1 style="white-space: nowrap; line-height: 2; font-size: 29px;">View Inventory</h1>
-    <t1 style="white-space: nowrap;">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Part Name</th>
-                <th>Part Number</th>
-                <th>Model</th>
-                <th>Stock Location</th>
-                <th>Quantity</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for item in items %}
-            <tr>
-                <td>{{ item.part_name }}</td>
-                <td>{{ item.part_number }}</td>
-                <td>{{ item.model }}</td>
-                <td>{{ item.stock_location }}</td>
-                <td>{{ item.quantity }}</td>
-            </tr>
-            {% endfor %}
-            </tbody>
+    <h1 style=" white-space: nowrap; font-size: 29px;">list of Inventory</h1>
+</div>
+
+<link rel="stylesheet" type="text/css" href="{% static 'inventory_app/css/table.css' %}">
+
+<div class="container">
+    <div class="table-container">
+        <table class="data-table">
+            {{ items | safe }}
         </table>
-    </t1>
+    </div>
 </div>
 {% endblock %}
+

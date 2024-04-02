@@ -119,7 +119,7 @@ class Inventory:
                     self.df.to_excel(self.filename, index=False)
                 except PermissionError:
                     return ["Error", f"Failed to update quantity. Please close the Excel file that is currently open."]
-                return ["Message", f"Quantity updated successfully."]
+                return ["Success", f"Quantity updated successfully."]
             else:
                 error = ["Error", f"Failed to update quantity. Quantity is more than available. Available Quantity is {row['Quantity']}."]
                 return error

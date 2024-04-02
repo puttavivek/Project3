@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import filedialog
 from .inventorymodule import Inventory as Inventory
 from .inventorymodule import MyApp as MyApp
 
@@ -56,24 +57,41 @@ class Web_Data:
         inventory = Inventory()
 
         action = listfrom[0]
-        print(action)
 
         if action == "ADD":
             # Add item to the inventory
             return_str = inventory.add_method(*listfrom[1:])
             return return_str
 
-        elif action == "REMOVE":
+        elif action == "EDIT":
             return_str = inventory.update_method(*listfrom[1:3])
+            return return_str
+
+        elif action == "SEARCH":
+            result = inventory.search_method(listfrom[1])
+            result = result.to_html(index=False)
+            table_snippet = ('<table border="1" class="dataframe">')
+            new_snippet = ('<table class="table table-bordered table-striped" style="background-color: #fff;">')
+            result = result.replace(table_snippet,new_snippet )
+            return result
 
         elif action == "BRING":
             excel_df = inventory.bring_list()
-
-        elif action == "SEARCH":
-            result = inventory.search_method(*listfrom[1])
+            result = excel_df.to_html(index=False)
+            table_snippet = ('<table border="1" class="dataframe">')
+            new_snippet = ('<table class="table table-bordered table-striped" style="background-color: #fff;">')
+            result = result.replace(table_snippet, new_snippet)
+            return result
 
         elif action == 'PRINT':
-            return_str = inventory.print_list(*listfrom[1])
+            folder_selected = filedialog.askdirectory()
+            if folder_selected:
+                outlist = ["PRINT", folder_selected]
+            else:
+                return ["Message", f"Please select a folder"]
+
+            return_str = inventory.print_list(outlist)
+            return return_str
 
         elif action == 'BULK':
             return_str = inventory.bulk_entry(*listfrom[1])
