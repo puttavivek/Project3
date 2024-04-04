@@ -8,6 +8,21 @@
     <a class="btn btn-primary btn-lg btn-block mb-3" href="edit/">Edit Inventory</a>
     <a class="btn btn-primary btn-lg btn-block mb-3" href="search/">Search Inventory</a>
     <a class="btn btn-primary btn-lg btn-block mb-3" href="list/">View Inventory</a>
-    <a class="btn btn-primary btn-lg btn-block mb-3" href="print/">Print Inventory</a>
+    <form method="post" action="{% url 'print_item' %}" class="mb-3" onsubmit="showPrintingMessage()">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-lg btn-block mb-3" style="width: 250px;">Print Inventory</button>
+    </form>
+    <div id="printingMessage" class="alert alert-info" style="display: none;" role="alert">
+        Printing will take a while. Please wait...
+    </div>
 </div>
+<script>
+    function showPrintingMessage() {
+        document.getElementById("printingMessage").style.display = "block";
+        // Remove the message after 5 seconds (adjust as needed)
+        setTimeout(function() {
+            document.getElementById("printingMessage").style.display = "none";
+        }, 5000);
+    }
+</script>
 {% endblock %}

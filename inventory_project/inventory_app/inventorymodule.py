@@ -1,3 +1,4 @@
+import matplotlib
 import pandas as pd
 import datetime
 import matplotlib.pyplot as plt
@@ -9,6 +10,7 @@ from tkinter import ttk
 from math import ceil
 import os as os
 from django.conf import settings
+from io import BytesIO
 
 
 class Inventory:
@@ -186,16 +188,6 @@ class Inventory:
         return ["Message", f"Data added successfully."]
 
     def print_list(self, pdf_file_location="."):
-        """
-                Prints the inventory data to a PDF file.
-
-                Parameters:
-                - pdf_file_location (str): The location to save the PDF file.
-
-                Returns:
-                - str: Confirmation message indicating the location and name of the printed PDF file.
-        """
-
         # Set the maximum number of rows per page for the PDF
         max_rows_per_page = 50
         # Calculate the number of pages needed
@@ -206,11 +198,13 @@ class Inventory:
 
         # Generate the PDF file name with timestamp
         pdf_file_name = f"inventory-{self.date_now.strftime('%d-%m-%Y-%H-%M')}.pdf"
-        pdf_file_path = os.path.join(pdf_file_location, pdf_file_name)
+
+        # Create a BytesIO buffer to store the PDF content
+        buffer = BytesIO()
 
         try:
             # Create a PdfPages object to manage the PDF file
-            with PdfPages(pdf_file_path) as pdf:
+            with PdfPages(buffer) as pdf:
                 for page in range(num_pages):
                     fig, ax = plt.subplots(figsize=(8.27, 11.69))
                     ax.axis('off')  # Turn off axis labels and ticks
@@ -238,11 +232,62 @@ class Inventory:
                     pdf.savefig(fig, bbox_inches='tight')
                     plt.close()
 
-            message = ["Message", f"Inventory list printed successfully. File location: {pdf_file_location}, File name: {pdf_file_name}"]
+            # Reset buffer position to start
+            buffer.seek(0)
+            buffer_data = buffer.getvalue()
+
+            return ["SUCCESS", buffer_data, pdf_file_name]
 
         except PermissionError:
-            return ["Error", "Error: Permission issue. Please check if the PDF file location is accessible."]
-        return message
+            return ("Error", "Permission issue. Please check if the PDF file location is accessible.")
+        #
+        # # Set the maximum number of rows per page for the PDF
+        # max_rows_per_page = 50
+        # # Calculate the number of pages needed
+        # num_pages = ceil(len(self.df) / max_rows_per_page)
+        #
+        # # Define column widths for table layout
+        # relative_column_widths = [0.3, 0.15, 0.1, 0.075, 0.075, 0.3]
+        #
+        # # Generate the PDF file name with timestamp
+        # pdf_file_name = f"inventory-{self.date_now.strftime('%d-%m-%Y-%H-%M')}.pdf"
+        # pdf_file_path = os.path.join(pdf_file_location, pdf_file_name)
+        #
+        # try:
+        #     # Create a PdfPages object to manage the PDF file
+        #     with PdfPages(pdf_file_path) as pdf:
+        #         for page in range(num_pages):
+        #             fig, ax = plt.subplots(figsize=(8.27, 11.69))
+        #             ax.axis('off')  # Turn off axis labels and ticks
+        #
+        #             if page == 0:
+        #                 # Add title to the first page
+        #                 fig.text(0.5, 0.97, 'Inventory List', fontsize=16, fontweight='bold', ha='center', va='top')
+        #                 # Adjusting the spacing to reduce the gap between title and table
+        #                 fig.subplots_adjust(top=0.99)
+        #
+        #             # Calculate the rows to display on this page
+        #             start_row = page * max_rows_per_page
+        #             end_row = min(start_row + max_rows_per_page, len(self.df))
+        #             df_chunk = self.df.iloc[start_row:end_row]
+        #
+        #             # Create the table and add it to the axes
+        #             table = ax.table(cellText=df_chunk.values, colLabels=self.df.columns, cellLoc='center',
+        #                              loc='center', colWidths=relative_column_widths)
+        #             table.auto_set_font_size(False)
+        #             table.set_fontsize(6)
+        #
+        #             table.scale(1, 1.2)
+        #             ax.set_position([0, 0, 1, 0.9])
+        #
+        #             pdf.savefig(fig, bbox_inches='tight')
+        #             plt.close()
+        #
+        #     message = ["Message", f"Inventory list printed successfully. File location: {pdf_file_location}, File name: {pdf_file_name}"]
+        #
+        # except PermissionError:
+        #     return ["Error", "Error: Permission issue. Please check if the PDF file location is accessible."]
+        # return message
 
 
 class MyApp:

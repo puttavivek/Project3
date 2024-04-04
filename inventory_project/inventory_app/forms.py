@@ -14,3 +14,6 @@ class EditItemForm(forms.Form):
 
 class SearchItemForm(forms.Form):
     part_number = forms.CharField(max_length=50)
+
+class PrintListForm(forms.Form):
+    pass

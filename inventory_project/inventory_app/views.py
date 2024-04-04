@@ -7,6 +7,7 @@ from .forms import EditItemForm
 from .models import Item
 from .project1main import Web_Data as wd
 from django.contrib import messages
+from .forms import PrintListForm
 
 def home(request):
     return render(request, 'inventory_app/home.html')
@@ -70,12 +71,14 @@ def list_items(request):
     return render(request, 'inventory_app/list_items.html', {'items': returnstr})
 
 def print_item(request):
-    returnstr = wd.web_data(["PRINT"])
-    if returnstr[0] == "Success":
-        print("inside success")
-        messages.success(request, returnstr[1])
-    elif returnstr[0] == "Error":
-        messages.warning(request, returnstr[1])
+    if request.method == 'POST':
+        form = PrintListForm(request.POST)
+        if form.is_valid():
+            returnstr = wd.web_data(["PRINT"])
+            return returnstr
+    else:
+        form = PrintListForm()
+    return render(request, 'inventory_app/print_list.html', {'form': form})
 
 def search_results(request):
     # Display search results functionality

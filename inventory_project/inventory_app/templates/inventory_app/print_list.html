@@ -1,0 +1,14 @@
+{% extends 'inventory_app/index.html' %}
+
+{% block title %}Page 1 Title{% endblock %}
+
+{% block content %}
+<div class="d-grid gap-2 col-2 mx-auto">
+    <h1 style="white-space: nowrap; line-height: 2; font-size: 29px;">Print Items</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" style="margin-bottom: 10px;">Print</button>
+    </form>
+</div>
+{% endblock %}

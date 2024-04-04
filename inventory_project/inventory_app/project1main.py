@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import filedialog
 from .inventorymodule import Inventory as Inventory
 from .inventorymodule import MyApp as MyApp
+from django.http import HttpResponse
+
 
 
 # Create the main Tkinter root window
@@ -84,14 +86,14 @@ class Web_Data:
             return result
 
         elif action == 'PRINT':
-            folder_selected = filedialog.askdirectory()
-            if folder_selected:
-                outlist = ["PRINT", folder_selected]
-            else:
-                return ["Message", f"Please select a folder"]
 
-            return_str = inventory.print_list(outlist)
-            return return_str
+            returnstr = inventory.print_list()
+            if returnstr[0] == "SUCCESS":
+                response = HttpResponse(returnstr[1], content_type='application/pdf')
+                response['Content-Disposition'] = f'attachment; filename="{returnstr[2]}"'
+                return response
+            else:
+                return returnstr
 
         elif action == 'BULK':
             return_str = inventory.bulk_entry(*listfrom[1])
