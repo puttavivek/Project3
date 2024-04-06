@@ -1,12 +1,14 @@
 # inventory_app/forms.py
 
 from django import forms
-from .models import Item
 
-class AddItemForm(forms.ModelForm):
-    class Meta:
-        model = Item
-        fields = ['part_name', 'part_number', 'model', 'stock_location', 'quantity']
+
+class AddItemForm(forms.Form):
+    part_name = forms.CharField(max_length=100)
+    part_number = forms.CharField(max_length=100)
+    model = forms.CharField(max_length=100)
+    stock_location = forms.IntegerField()
+    quantity = forms.IntegerField()
 
 class EditItemForm(forms.Form):
     part_number = forms.CharField(max_length=50)

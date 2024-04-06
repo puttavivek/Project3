@@ -82,7 +82,7 @@ class Inventory:
             except PermissionError:
                 return ["Error", f"Failed to add data. Please close the Excel file that is currently open."]
 
-            return "Success"
+            return ["Success", "Item Added Succesfully"]
 
         # if part is present update the quantity
         else:
@@ -93,7 +93,7 @@ class Inventory:
             except PermissionError:
                 return ["Error", f"Failed to update data. Please close the Excel file that is currently open."]
 
-            return "Success"
+            return ["Success", "Item Updated Succesfully"]
 
     def update_method(self, part_no, quantity):
         """

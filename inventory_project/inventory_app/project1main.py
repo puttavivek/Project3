@@ -71,10 +71,13 @@ class Web_Data:
 
         elif action == "SEARCH":
             result = inventory.search_method(listfrom[1])
-            result = result.to_html(index=False)
-            table_snippet = ('<table border="1" class="dataframe">')
-            new_snippet = ('<table class="table table-bordered table-striped" style="background-color: #fff;">')
-            result = result.replace(table_snippet,new_snippet )
+            if isinstance(result, list):
+                pass
+            else:
+                result = result.to_html(index=False)
+                table_snippet = ('<table border="1" class="dataframe">')
+                new_snippet = ('<table class="table table-bordered table-striped" style="background-color: #fff;">')
+                result = result.replace(table_snippet,new_snippet )
             return result
 
         elif action == "BRING":

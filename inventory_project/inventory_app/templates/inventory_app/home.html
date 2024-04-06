@@ -10,11 +10,21 @@
     <a class="btn btn-primary btn-lg btn-block mb-3" href="list/">View Inventory</a>
     <form method="post" action="{% url 'print_item' %}" class="mb-3" onsubmit="showPrintingMessage()">
         {% csrf_token %}
-        <button type="submit" class="btn btn-primary btn-lg btn-block mb-3" style="width: 250px;">Print Inventory</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block mb-3" style="width: 250px;">Print Inventory
+        </button>
     </form>
     <div id="printingMessage" class="alert alert-info" style="display: none;" role="alert">
         Printing will take a while. Please wait...
     </div>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="d-grid mx-auto">
+        <div class="alert alert-{{ message.tags }}" role="alert">
+            {{ message }}
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
 </div>
 <script>
     function showPrintingMessage() {
@@ -24,5 +34,6 @@
             document.getElementById("printingMessage").style.display = "none";
         }, 5000);
     }
+
 </script>
 {% endblock %}
