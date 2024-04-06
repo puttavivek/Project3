@@ -98,8 +98,5 @@ class Web_Data:
             else:
                 return returnstr
 
-        elif action == 'BULK':
-            return_str = inventory.bulk_entry(*listfrom[1])
-
         else:
             pass
