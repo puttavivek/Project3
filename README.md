@@ -25,9 +25,9 @@ This is a simple inventory assistant implemented in Python using Pandas for data
 
 4. **Run the main application file:**
    ```bash
-   Change directory to inventoey_project
+   Change directory to inventory_project
    run command "python manage.py runserver"
-   wait till it opens a web page with below buttons.
+   wait till it opens a web page with the below buttons.
    ```
 
 ## User Input Details
