@@ -8,7 +8,7 @@
     <form method="post">
         {% csrf_token %}
         <p><input type="text" name="part_number" placeholder="Part Number"></p>
-        <p><input type="number" name="quantity" placeholder="Quantity"></p>
+        <p><input type="number" name="quantity" placeholder="Quantity" min="0"></p>
         <button type="submit" style="margin-bottom: 10px;">Edit Item</button>
     </form>
 </div>
