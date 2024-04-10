@@ -67,4 +67,4 @@ When this option is selected user is prompted to select the folder location and 
 - Bulk entry of inventory data from a file.
 
 ### Project Report and Video Presentation:
-For Project Report and a video presentation, visit the   
+For Project Report and a video presentation, visit the https://youtu.be/lF9V7HtzpcQ
